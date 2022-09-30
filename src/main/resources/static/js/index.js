@@ -8,7 +8,6 @@ $(function () {
     // 检测个数
     number = 0;
     $("#jc").click(function () {
-        // alert(files.length)
         show()
     })
 })
@@ -130,10 +129,13 @@ function fileinputs() {
         showUpload: true, //是否显示上传按钮
         showRemove: true, //显示移除按钮
         showPreview: false,
+        showCaption: true,//是否显示标题
+        msgPlaceholder: "选择 文件夹 ...",
+        msgSelected: '{n} {files} 选中',
         minFileCount: 1,
         // maxFileCount: picLimit,
         msgFilesTooMany: "选择上传的文件数量({n}) 最大数量为{m}！",
-        dropZoneTitle: '500KB以下\n' + 'JPG或PNG',
+        // dropZoneTitle: '500KB以下\n' + 'JPG或PNG',
         language: 'zh',
         // maxFileSize: 10000 * 1024,//1000MB 文件上传限制大小
         uploadAsync: true,//同步上传  后台参数为MultipartFile[]，若异步参数为MultipartFile
@@ -148,6 +150,11 @@ function fileinputs() {
             return filename;
         }
     })
+        .on("change", function () {
+            // 清除掉上次上传的图片
+            $(".uploadPreview").find(".file-preview-frame:first").remove();
+            $(".uploadPreview").find(".kv-zoom-cache:first").remove();
+        })
         .on('filecleared', function () {//点击移除按钮时触发
 
         }).on('fileuploaded', function (event, data, previewId, index) {//文件上传完成后触发
